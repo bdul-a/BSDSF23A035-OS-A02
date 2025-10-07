@@ -1,18 +1,24 @@
+/* src/ls-v1.1.0.c
+ * ls - simple listing with -l long listing (version 1.1.0)
+ *
+ * Uses: lstat(), getpwuid(), getgrgid(), strftime(), readlink()
+ */
+
 #define _GNU_SOURCE
 #define _XOPEN_SOURCE 700
 #define _POSIX_C_SOURCE 200809L
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <dirent.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <dirent.h>
+#include <limits.h>
 #include <pwd.h>
 #include <grp.h>
 #include <time.h>
 #include <errno.h>
-#include <limits.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /* Print a permission string (like "drwxr-xr-x") followed by a space */
 static void print_permissions(mode_t mode) {
