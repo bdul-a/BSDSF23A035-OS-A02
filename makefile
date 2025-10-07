@@ -1,27 +1,25 @@
-# Makefile for ls clone
+# Compiler and flags
 CC = gcc
-CFLAGS = -Wall -g
+CFLAGS = -Wall -g -D_GNU_SOURCE -D_XOPEN_SOURCE=700 -D_POSIX_C_SOURCE=200809L
 
-SRC = src/ls-v1.1.0.c
-OBJ = obj/ls-v1.1.0.o
-BIN = bin/ls
+# Directories
+SRC_DIR = src
+OBJ_DIR = obj
+BIN_DIR = bin
 
+# Files
+SRC = $(SRC_DIR)/ls-v1.1.0.c
+OBJ = $(OBJ_DIR)/ls-v1.1.0.o
+BIN = $(BIN_DIR)/ls
+
+# Default target
 all: $(BIN)
 
-$(OBJ): $(SRC) | obj
+$(OBJ): $(SRC)
 	$(CC) $(CFLAGS) -c $(SRC) -o $(OBJ)
 
-$(BIN): $(OBJ) | bin
+$(BIN): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(BIN)
-
-obj:
-	mkdir -p obj
-
-bin:
-	mkdir -p bin
 
 clean:
 	rm -f $(OBJ) $(BIN)
-
-run: $(BIN)
-	./$(BIN)
