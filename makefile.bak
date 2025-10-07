@@ -1,0 +1,27 @@
+# Makefile for ls clone
+CC = gcc
+CFLAGS = -Wall -g
+
+SRC = src/ls-v1.1.0.c
+OBJ = obj/ls-v1.1.0.o
+BIN = bin/ls
+
+all: $(BIN)
+
+$(OBJ): $(SRC) | obj
+<TAB>$(CC) $(CFLAGS) -c $(SRC) -o $(OBJ)
+
+$(BIN): $(OBJ) | bin
+<TAB>$(CC) $(CFLAGS) $(OBJ) -o $(BIN)
+
+obj:
+<TAB>mkdir -p obj
+
+bin:
+<TAB>mkdir -p bin
+
+clean:
+<TAB>rm -f $(OBJ) $(BIN)
+
+run: $(BIN)
+<TAB>./$(BIN)
